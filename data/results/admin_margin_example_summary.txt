@@ -1,0 +1,8 @@
+Scenario: admin_margin_example
+Mean rejection probability: 0.74
+Threshold_null: 0.11805
+n1: 100
+n2: 100
+Bootstrap B: 500
+Replicates N: 1000
+Time horizon T_max: 90

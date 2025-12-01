@@ -1,0 +1,9 @@
+Scenario: random_alternative4_exp005
+Mean rejection probability: 0.014
+Threshold_null: 0.096
+n1: 50
+n2: 50
+Censoring rate: 0.005
+Bootstrap B: 500
+Replicates N: 1000
+Time horizon T_max: 90

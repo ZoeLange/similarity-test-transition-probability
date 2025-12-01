@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# R data and history
+.Rhistory
+.RData
+.Rproj.user/
+
+# results (keep only your approved examples)
+data/results/*
+!data/results/admin_*
+!data/results/random_*
+
