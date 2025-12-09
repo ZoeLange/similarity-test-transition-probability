@@ -13,6 +13,28 @@
 #   * save results to data/results/
 #
 #######################################################################
+# -------------------------------------------------------------------
+# Required packages
+# -------------------------------------------------------------------
+if (!requireNamespace("foreach", quietly = TRUE)) {
+  stop(
+    "The package 'foreach' is required but not installed.\n",
+    "Please run: install.packages('foreach')"
+  )
+}
+library(foreach)
+
+# Optional: doMC for parallel backend (macOS / Linux only)
+if (requireNamespace("doMC", quietly = TRUE)) {
+  library(doMC)
+  cores_to_use <- max(1, parallel::detectCores() - 1)
+  doMC::registerDoMC(cores = cores_to_use)
+  message("Parallel backend 'doMC' loaded. Using ", cores_to_use, " cores.")
+} else {
+  message("Package 'doMC' not installed — running in serial mode.")
+}
+
+
 #' @title Run Full Simulation Scenario (Administrative Censoring)
 #' @export
 run_scenario_adm <- function(
@@ -31,14 +53,7 @@ run_scenario_adm <- function(
   message("------------------------------------------------------------")
   message(" Running scenario (administrative censoring): ", scen_name)
   message("------------------------------------------------------------")
-  
-  if (requireNamespace("doMC", quietly = TRUE)) {
-    doMC::registerDoMC(cores = max(1, parallel::detectCores() - 1))
-    message("Parallel computing enabled.")
-  } else {
-    message("Package 'doMC' not found — running in serial mode.")
-  }
-  
+ 
   message("Starting ", N, " simulation replicates...")
   
   results <- foreach::foreach(i = 1:N) %dopar% {
@@ -80,19 +95,6 @@ run_scenario_adm <- function(
   save_path <- file.path(save_dir, paste0(scen_name, ".RData"))
   save(out, file = save_path)
   
-  # ---- Save TXT summary ----
-  txt_path <- file.path(save_dir, paste0(scen_name, "_summary.txt"))
-  writeLines(c(
-    paste("Scenario:", scen_name),
-    paste("Mean rejection probability:", mean_rej),
-    paste("Threshold_null:", threshold_null),
-    paste("n1:", n1),
-    paste("n2:", n2),
-    paste("Bootstrap B:", B),
-    paste("Replicates N:", N),
-    paste("Time horizon T_max:", T_max)
-  ), con = txt_path)
-  
   # ---- Save CSV summary ----
   csv_path <- file.path(save_dir, paste0(scen_name, "_summary.csv"))
   
@@ -112,12 +114,10 @@ run_scenario_adm <- function(
   message("Scenario '", scen_name, "' completed.")
   message("Saved files:")
   message("  - ", save_path)
-  message("  - ", txt_path)
   message("  - ", csv_path)
   
   invisible(out)
 }
-
 
 
 ##############################################
@@ -144,13 +144,7 @@ run_scenario_random <- function(
   message(" Running scenario (random right censoring): ", scen_name)
   message("------------------------------------------------------------")
   
-  if (requireNamespace("doMC", quietly = TRUE)) {
-    doMC::registerDoMC(cores = max(1, parallel::detectCores() - 1))
-    message("Parallel computing enabled.")
-  } else {
-    message("Package 'doMC' not found — running in serial mode.")
-  }
-  
+
   message("Starting ", N, " simulation replicates...")
   
   results <- foreach::foreach(i = 1:N) %dopar% {
@@ -194,19 +188,6 @@ run_scenario_random <- function(
   save_path <- file.path(save_dir, paste0(scen_name, ".RData"))
   save(out, file = save_path)
   
-  # ---- Save TXT ----
-  txt_path <- file.path(save_dir, paste0(scen_name, "_summary.txt"))
-  writeLines(c(
-    paste("Scenario:", scen_name),
-    paste("Mean rejection probability:", mean_rej),
-    paste("Threshold_null:", threshold_null),
-    paste("n1:", n1),
-    paste("n2:", n2),
-    paste("Censoring rate:", censoring_rate),
-    paste("Bootstrap B:", B),
-    paste("Replicates N:", N),
-    paste("Time horizon T_max:", T_max)
-  ), con = txt_path)
   
   # ---- Save CSV ----
   csv_path <- file.path(save_dir, paste0(scen_name, "_summary.csv"))
@@ -228,7 +209,6 @@ run_scenario_random <- function(
   message("Scenario '", scen_name, "' completed.")
   message("Saved files:")
   message("  - ", save_path)
-  message("  - ", txt_path)
   message("  - ", csv_path)
   
   invisible(out)

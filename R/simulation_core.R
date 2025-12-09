@@ -13,6 +13,13 @@
 #    transition probabilities"
 #
 #######################################################################
+if (!requireNamespace("alabama", quietly = TRUE)) {
+  stop(
+    "The package 'alabama' is required but is not installed.\n",
+    "Please run: install.packages('alabama')"
+  )
+}
+library(alabama)
 
 ##############################################
 # 1) Simulation under administrative censoring

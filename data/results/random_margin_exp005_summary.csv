@@ -1,2 +1,2 @@
 "scen_name","mean_rejection","threshold_null","n1","n2","censoring_rate","B","N","T_max"
-"random_alternative4_exp005",0.014,0.096,50,50,0.005,500,1000,90
+"random_margin_exp005",0.014,0.096,50,50,0.005,500,1000,90

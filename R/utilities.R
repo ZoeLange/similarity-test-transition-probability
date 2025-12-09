@@ -9,6 +9,10 @@
 # These functions are called by simulation_core.R and scenarios.R.
 #
 #######################################################################
+if (!requireNamespace("dplyr", quietly = TRUE)) {
+  stop("Package 'dplyr' is required. Install via: install.packages('dplyr')")
+}
+library(dplyr)
 
 #############################
 # 1) Data generation
