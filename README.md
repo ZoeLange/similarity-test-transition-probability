@@ -1,23 +1,20 @@
-# Testing Similarity in Competing Risks Models
+# Testing Similarity of Competing Risks Models
 ### Reproducible Code for the Paper  
-**“Testing similarity of competing risks models by comparing transition probabilities”**  
-Lange, Farhadizadeh, Dette & Binder (2025)
+Lange, Z.K., Farhadizadeh, M., Dette, H., & Binder, N. (2025). Testing similarity of competing risks models by comparing transition probabilities. arXiv. https://arxiv.org/abs/2512.00583
 
 ---
 
 ## Overview
 
-This repository contains the full simulation framework used in our paper on  
-**testing similarity of competing risks models** based on a  
-**transition-probability–based distance**.
+This repository provides the full simulation framework developed and presented in our paper **“Testing similarity of competing risks models by comparing transition probabilities”**.
 
 The repository includes:
 
--  Data generation for competing risks with constant hazards  
-- Likelihood estimation under administrative and random censoring  
+-  Data generation for competing risks with constant intensities
+-  Likelihood estimation under administrative and random censoring  
 -  Transition probability distance computation  
 -  Constrained parametric bootstrap test  
--  Full replication of the simulation scenarios  
+-  Replication of two exemplary simulation scenarios  
 -  Results saved automatically for each scenario
 
 All code is written in **R**, modularized, documented, and easy to run.
@@ -32,17 +29,16 @@ source("scripts/main_simulations.R")
 
 
 
-This script will:
+This script:
 
-1. Load all required functions
+1. Loads all required functions
 
-2. Run the example scenarios:
+2. Runs two examplary simulation scenarios:
 
-   - Administrative censoring
+   - Administrative censoring Alternative 4
 
-   - Random right censoring
+   - Random right censoring (Margin, ψ = 0.005)
 
-Save results in data/results/ as:
+3. Saves results in data/results/ as:
 
-- A file containing the full simulation results
-
+  - csv and RData files containing the full simulation results
