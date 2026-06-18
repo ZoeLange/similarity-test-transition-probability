@@ -32,8 +32,8 @@ admin_alternative4_example <- run_scenario_adm(
   alpha1_true   = c(0.0009, 0.0011, 0.0004),
   alpha2_true   = c(0.0008, 0.0012, 0.0007),
   threshold_null = 0.11805,
-  N             = 1000,
-  B             = 500,
+  N             = 100,
+  B             = 50,
   T_max         = 90
 )
 
@@ -52,7 +52,7 @@ random_margin_exp005 <- run_scenario_random(
   alpha1_true    = c(0.0023, 0.0011, 0.0004),
   alpha2_true    = c(0.0008, 0.0026, 0.0019),
   censoring_rate = 0.005,
-  threshold_null = 0.0960,
+  threshold_null = 0.11805,
   N              = 1000,
   B              = 500,
   T_max          = 90

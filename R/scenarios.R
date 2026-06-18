@@ -10,7 +10,7 @@
 #   * run N simulation replicates (using run_simulation_* from simulation_core.R)
 #   * optionally use parallel computation via foreach/doMC
 #   * compute mean rejection probabilities
-#   * save results to data/results/
+#   * save results to data/results
 #
 #######################################################################
 # -------------------------------------------------------------------
@@ -34,6 +34,10 @@ if (requireNamespace("doMC", quietly = TRUE)) {
   message("Package 'doMC' not installed — running in serial mode.")
 }
 
+
+##############################################
+# Scenario: Type I Censoring
+##############################################
 
 #' @title Run Full Simulation Scenario (Administrative Censoring)
 #' @export

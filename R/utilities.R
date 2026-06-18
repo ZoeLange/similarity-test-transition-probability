@@ -197,44 +197,45 @@ compute_tp_distance_adm <- function(alpha1, alpha2, T_max) {
   )
 }
 
+
 #' @title Max TP Distance (Random Censoring)
 #' @export
-compute_tp_distance_random <- function(alpha1, alpha2, cens1, cens2, T_max) {
+# compute_tp_distance_random <- function(alpha1, alpha2, cens1, cens2, T_max) {
   
-  stopifnot(length(alpha1) == length(alpha2))
-  k <- length(alpha1)
+#   stopifnot(length(alpha1) == length(alpha2))
+#   k <- length(alpha1)
   
-  lambda1 <- sum(alpha1) + cens1
-  lambda2 <- sum(alpha2) + cens2
+#   lambda1 <- sum(alpha1) + cens1
+#   lambda2 <- sum(alpha2) + cens2
   
-  compute_j <- function(j) {
-    a1 <- alpha1[j]
-    a2 <- alpha2[j]
+#   compute_j <- function(j) {
+#     a1 <- alpha1[j]
+#     a2 <- alpha2[j]
     
-    D <- function(t) {
-      P1 <- (a1 / lambda1) * (1 - exp(-lambda1 * t))
-      P2 <- (a2 / lambda2) * (1 - exp(-lambda2 * t))
-      abs(P1 - P2)
-    }
+#     D <- function(t) {
+#       P1 <- (a1 / lambda1) * (1 - exp(-lambda1 * t))
+#       P2 <- (a2 / lambda2) * (1 - exp(-lambda2 * t))
+#       abs(P1 - P2)
+#     }
     
-    if (lambda1 != lambda2) {
-      t_star <- (log(a2) - log(a1)) / (lambda2 - lambda1)
-    } else {
-      t_star <- NA
-    }
+#     if (lambda1 != lambda2) {
+#       t_star <- (log(a2) - log(a1)) / (lambda2 - lambda1)
+#     } else {
+#       t_star <- NA
+#     }
     
-    D_T <- D(T_max)
-    D_star <- if (!is.na(t_star) && t_star > 0 && t_star <= T_max) D(t_star) else -Inf
+#     D_T <- D(T_max)
+#     D_star <- if (!is.na(t_star) && t_star > 0 && t_star <= T_max) D(t_star) else -Inf
     
-    max(D_T, D_star)
-  }
+#     max(D_T, D_star)
+#   }
   
-  max_dist <- sapply(1:k, compute_j)
-  list(
-    max_distances = max_dist,
-    global_max_distance = max(max_dist)
-  )
-}
+#   max_dist <- sapply(1:k, compute_j)
+#   list(
+#     max_distances = max_dist,
+#     global_max_distance = max(max_dist)
+#   )
+# } 
 
 #######################################################################
 # End of utilities.R
