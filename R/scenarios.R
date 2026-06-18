@@ -27,7 +27,8 @@ library(foreach)
 # Optional: doMC for parallel backend (macOS / Linux only)
 if (requireNamespace("doMC", quietly = TRUE)) {
   library(doMC)
-  cores_to_use <- max(1, parallel::detectCores() - 1)
+  detected_cores <- parallel::detectCores()
+  cores_to_use <- if (is.na(detected_cores)) 2 else max(1, detected_cores - 1)
   doMC::registerDoMC(cores = cores_to_use)
   message("Parallel backend 'doMC' loaded. Using ", cores_to_use, " cores.")
 } else {

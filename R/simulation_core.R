@@ -74,8 +74,18 @@ run_simulation_adm <- function(
   # -------------------------------------------------------------
   # Step 2: Estimate transition intensities via MLE
   # -------------------------------------------------------------
-  alpha1_hat <- optim(par = start, fn = loglik_adm(dat1))$par
-  alpha2_hat <- optim(par = start, fn = loglik_adm(dat2))$par
+  alpha1_hat <- optim(
+    par = start,
+    fn = loglik_adm(dat1),
+    method = "L-BFGS-B",
+    lower = rep(1e-10, length(start))
+  )$par
+  alpha2_hat <- optim(
+    par = start,
+    fn = loglik_adm(dat2),
+    method = "L-BFGS-B",
+    lower = rep(1e-10, length(start))
+  )$par
   
   # -------------------------------------------------------------
   # Step 3: Compute test statistic (max TP distance)
@@ -149,8 +159,18 @@ run_simulation_adm <- function(
       censoring = list(model = "adm", param = T_max)
     )
     
-    alpha1b <- optim(par = alpha1_cons, fn = loglik_adm(dat1b))$par
-    alpha2b <- optim(par = alpha2_cons, fn = loglik_adm(dat2b))$par
+    alpha1b <- optim(
+      par = alpha1_cons,
+      fn = loglik_adm(dat1b),
+      method = "L-BFGS-B",
+      lower = rep(1e-10, length(alpha1_cons))
+    )$par
+    alpha2b <- optim(
+      par = alpha2_cons,
+      fn = loglik_adm(dat2b),
+      method = "L-BFGS-B",
+      lower = rep(1e-10, length(alpha2_cons))
+    )$par
     
     boot_vals[b] <- compute_tp_distance_adm(
       alpha1 = alpha1b,
@@ -217,8 +237,18 @@ run_simulation_random <- function(
   # -------------------------------------------------------------
   # Step 2: MLE for hazards + censoring
   # -------------------------------------------------------------
-  alpha1_hat <- optim(par = start, fn = loglik_random(dat1))$par
-  alpha2_hat <- optim(par = start, fn = loglik_random(dat2))$par
+  alpha1_hat <- optim(
+    par = start,
+    fn = loglik_random(dat1),
+    method = "L-BFGS-B",
+    lower = rep(1e-10, length(start))
+  )$par
+  alpha2_hat <- optim(
+    par = start,
+    fn = loglik_random(dat2),
+    method = "L-BFGS-B",
+    lower = rep(1e-10, length(start))
+  )$par
   
   # Test statistic
   t_stat <- compute_tp_distance_adm(
@@ -284,8 +314,18 @@ run_simulation_random <- function(
       censoring = list(model = "exp", param = alpha2_hat[4])
     )
     
-    alpha1b <- optim(par = alpha1_cons, fn = loglik_adm(dat1b))$par
-    alpha2b <- optim(par = alpha2_cons, fn = loglik_adm(dat2b))$par
+    alpha1b <- optim(
+      par = alpha1_cons,
+      fn = loglik_adm(dat1b),
+      method = "L-BFGS-B",
+      lower = rep(1e-10, length(alpha1_cons))
+    )$par
+    alpha2b <- optim(
+      par = alpha2_cons,
+      fn = loglik_adm(dat2b),
+      method = "L-BFGS-B",
+      lower = rep(1e-10, length(alpha2_cons))
+    )$par
     
     boot_vals[b] <- compute_tp_distance_adm(
       alpha1 = alpha1b,
